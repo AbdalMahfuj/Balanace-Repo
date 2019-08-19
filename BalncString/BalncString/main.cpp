@@ -1,5 +1,4 @@
 //
-//  main.cpp
 //  BalncString
 //
 //  Created by Mamun on 18/8/19.
