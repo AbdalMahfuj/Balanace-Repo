@@ -1,0 +1,188 @@
+//
+//  main.cpp
+//  BalncString
+//
+//  Created by Mamun on 18/8/19.
+//  Copyright © 2019 Mamun. All rights reserved.
+//
+
+#include <iostream>
+#include "stdlib.h"
+#include "stdio.h"
+#include <stack>
+#include <string>
+#include <iterator>
+
+using namespace std;
+
+
+// function to check if paranthesis are balanced
+void createParanthesisBalanced(string expr)
+{
+    stack<char> s;
+    char x;
+    
+    string ns = "";
+    
+    // Traversing the Expression
+    for (int i=0; i<expr.length(); i++)
+    {
+        if (expr[i]=='('||expr[i]=='['||expr[i]=='{')
+        {
+            // Push the element in the stack
+            s.push(expr[i]);
+            continue;
+        }
+        
+        // IF current current character is not opening
+        // bracket, then it must be closing. So stack
+        // cannot be empty at this point.
+        //if (s.empty())
+          //  return false;
+        
+        switch (expr[i])
+        {
+            case ')':
+                
+                // Store the top element in a
+                x = s.top();
+                //s.pop();
+                if (x=='('){
+                    s.push(expr[i]);
+                }
+                else if (x=='{'){
+                    s.push('}');
+                }
+                else if (x=='['){
+                    s.push(']');
+                }
+                    //return false;
+                break;
+                
+            case '}':
+                
+                // Store the top element in b
+                x = s.top();
+               // s.pop();
+                //if (x=='(' || x=='[')
+                    //return false;
+                if (x=='{'){
+                    s.push(expr[i]);
+                }
+                else if (x=='('){
+                    s.push(')');
+                }
+                else if (x=='['){
+                    s.push(']');
+                }
+                break;
+                
+            case ']':
+                
+                // Store the top element in c
+                x = s.top();
+               // s.pop();
+                //if (x =='(' || x == '{')
+                  //  return false;
+                if (x=='['){
+                    s.push(expr[i]);
+                }
+                else if (x=='('){
+                    s.push(')');
+                }
+                else if (x=='{'){
+                    s.push('}');
+                }
+                break;
+        }
+    }
+    while(!s.empty()){
+        ns += s.top();
+        s.pop();
+    }
+//
+    string nss = "";
+    
+    for(int i=ns.length()-1;i>=0;i--){
+        nss += ns[i];
+    }
+    
+    cout<<nss<<endl;
+//    for(s)
+    // Check Empty Stack
+   // return (s.empty());
+}
+
+
+// function to check if paranthesis are balanced
+bool areParanthesisBalanced(string expr)
+{
+    stack<char> s;
+    char x;
+    
+    // Traversing the Expression
+    for (int i=0; i<expr.length(); i++)
+    {
+        if (expr[i]=='('||expr[i]=='['||expr[i]=='{')
+        {
+            // Push the element in the stack
+            s.push(expr[i]);
+            continue;
+        }
+        
+        // IF current current character is not opening
+        // bracket, then it must be closing. So stack
+        // cannot be empty at this point.
+        if (s.empty())
+            return false;
+        
+        switch (expr[i])
+        {
+            case ')':
+                
+                // Store the top element in a
+                x = s.top();
+                s.pop();
+                if (x=='{' || x=='[')
+                    return false;
+                break;
+                
+            case '}':
+                
+                // Store the top element in b
+                x = s.top();
+                s.pop();
+                if (x=='(' || x=='[')
+                    return false;
+                break;
+                
+            case ']':
+                
+                // Store the top element in c
+                x = s.top();
+                s.pop();
+                if (x =='(' || x == '{')
+                    return false;
+                break;
+        }
+    }
+    
+    // Check Empty Stack
+    return (s.empty());
+}
+
+// Driver program to test above function
+int main()
+{
+    string expr = "{()}[]";
+    //   {(]()
+    //   {([()])}
+    createParanthesisBalanced(expr);
+    
+   // if (areParanthesisBalanced(expr))
+     //   cout << "Balanced\n";
+    //else
+      //  cout << "Not Balanced\n";
+    return 0;
+}
+
